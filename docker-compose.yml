@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+    spring-boot-app:
+        build: ./spring-boot-app
+        ports:
+            - "8080:8080"
+        depends_on:
+            - dbpostgresql
+    dbpostgresql:
+        image: postgres:10-alpine
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=${pass}
+            - POSTGRES_USER=${user}
+            - POSTGRES_DB=${db}
+    node-app:
+        build: ./node-app
+        ports:
+            - "8081:8081"
